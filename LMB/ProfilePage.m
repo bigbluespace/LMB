@@ -27,13 +27,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(BOOL) isiPad {
+    return UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPad;
+}
+
 #pragma mark - UITableView Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if ([self isiPad]) {
+        return 600;
+    }
     return 400;
 }
 
@@ -49,6 +55,15 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     return 100;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([self isiPad]) {
+        return CGSizeMake(135, 150);
+    }
+    
+    return CGSizeMake(90, 100);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
